@@ -28,7 +28,8 @@ export const buildPlugins = ({ mode, paths, analyzer, platform, url }: BuildOpti
       PUBLIC_ROUTES: JSON.stringify(PUBLIC_ROUTES),
       ROUTE_THEMES: JSON.stringify(ROUTE_THEMES),
       API_BASE_URL: JSON.stringify(url),
-      EXTERNAL_LINKS: JSON.stringify(EXTERNAL_LINKS)
+      EXTERNAL_LINKS: JSON.stringify(EXTERNAL_LINKS),
+      MODE: JSON.stringify(mode)
     })
   ]
   if (isDevelopment) {

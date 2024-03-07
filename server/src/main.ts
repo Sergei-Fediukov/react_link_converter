@@ -22,7 +22,7 @@ async function bootstrap() {
   SwaggerModule.setup('/api/docs', app, document)
 
   app.useGlobalInterceptors(new TimeoutMiddleware())
-  
+
   await app.listen(PORT, () => {
     console.log('\x1b[43m', '\x1b[30m', `Server started on port ${PORT}!`, '\x1b[0m')
   })

@@ -19,3 +19,4 @@ declare const PUBLIC_ROUTES: Record<string, string>
 declare const ROUTE_THEMES: Record<string, string>
 declare const EXTERNAL_LINKS: Record<string, string>
 declare const API_BASE_URL: string
+declare const MODE: string

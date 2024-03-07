@@ -7,6 +7,7 @@
     "start": "yarn lint && webpack serve --env MODE=development",
     "build:dev": "webpack --env MODE=development",
     "build:prod": "webpack --env MODE=production ANALYZER=true",
+    "build:vercel:prod": "webpack --env MODE=production",
     "build:mobile": "webpack --env MODE=production ANALYZER=true PLATFORM=mobile",
     "build:desktop": "webpack --env MODE=production ANALYZER=true PLATFORM=desktop",
     "lint": "npx eslint --fix ."

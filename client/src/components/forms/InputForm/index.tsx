@@ -97,8 +97,10 @@ export const InputForm: FC<Props> = ({ title }) => {
               {`Convert ${title === 'AUDIO' ? 'YouTube-' : ''}link to ${title}`}
             </div>
             <CustomInput handleButtonSubmit={handleSubmit} isSubmitting={isSubmitting} requestErrors={Boolean(requestErrors.length)} valid={valid} />
-            {convertedData && convertedData?.image && <ImagePreviewButton handleFileDownload={handleFileDownload} imageName={convertedData?.image} resourceName={convertedData.resourceName} />}
-            {convertedData && !convertedData?.image && <DownloadFileButton handleFileDownload={handleFileDownload} />}
+            {convertedData && convertedData?.previewImage && (
+              <ImagePreviewButton handleFileDownload={handleFileDownload} imageName={convertedData?.previewImage} resourceName={convertedData?.resourceName} />
+            )}
+            {convertedData && !convertedData?.previewImage && <DownloadFileButton handleFileDownload={handleFileDownload} />}
             {!convertedData && !isLoading && !isHealthCheckLoading && <InfoBlock title={title} />}
           </form>
         )

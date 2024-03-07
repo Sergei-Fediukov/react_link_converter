@@ -87,32 +87,25 @@ export const useGoogleDrive = () => {
   }, [isLoggingIn, folderList, loginError])
 
   const { pathname } = useLocation()
-  const userDriveFileUpolad = async (accessToken: string, convertedData: any, folderId?: string) => {
+  const userDriveFileUpolad = async (accessToken: string, { fileName, resourceName, resourceUrl }: any, folderId?: string) => {
     setIsUserDriveFileUpolad(true)
     const getTypes = (pathname: string) => {
-      console.log('\x1b[45m', '\x1b[30m', '------> folderId', folderId, '\x1b[0m')
-      console.log('\x1b[45m', '\x1b[30m', '------> pathname', pathname, '\x1b[0m')
       if (pathname === '/') return { resourceType: 'link', resultType: 'PDF' }
       const [resourceType, resultType] = pathname.split('/').slice(1, 3)
       return { resourceType, resultType: resultType.toUpperCase() }
     }
     const { resourceType, resultType } = getTypes(pathname)
-    console.log('\x1b[45m', '\x1b[30m', '------> convertedData', convertedData, '\x1b[0m')
-    console.log('\x1b[45m', '\x1b[30m', '------> convertDataOptions', convertDataOptions, '\x1b[0m')
-    console.log('\x1b[45m', '\x1b[30m', '------> resourceType', resourceType, '\x1b[0m')
-    console.log('\x1b[45m', '\x1b[30m', '------> resultType', resultType, '\x1b[0m')
-    console.log('\x1b[45m', '\x1b[30m', '------> convertDataOptions[resourceType][resultType].type', convertDataOptions[resourceType][resultType].type, '\x1b[0m')
-    const fileURL = `${API_BASE_URL}/${convertDataOptions[resourceType][resultType].type}/${convertedData.file}`
+    const fileURL = resourceUrl || `${API_BASE_URL}/${convertDataOptions[resourceType][resultType].type}/${fileName}`
     try {
       const fileBlob = await get(fileURL, { responseType: 'blob' })
       const formData = new FormData()
       const metadata = folderId
         ? {
-            name: convertedData?.resourceName || convertedData.file,
+            name: resourceName || fileName,
             parents: [folderId]
           }
         : {
-            name: convertedData?.resourceName || convertedData.file
+            name: resourceName || fileName
           }
       formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }))
       formData.append('file', fileBlob)

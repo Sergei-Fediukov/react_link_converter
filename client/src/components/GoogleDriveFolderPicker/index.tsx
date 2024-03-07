@@ -58,11 +58,10 @@ export const GoogleDriveFolderPicker: FC<Props> = ({ handleShowModal }) => {
     }
   }
 
-  const defalutFileName = convertedData.resourceName.slice(0, convertedData.resourceName.lastIndexOf('.'))
+  const defalutFileName = convertedData.resourceName
 
   const handleFileNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const initialFileNameExtension = convertedData.resourceName.split('.').pop()
-    convertedData.resourceName = `${e.target.value}.${initialFileNameExtension}`
+    convertedData.resourceName = e.target.value
   }
 
   const renderFolders = (folders: Folder[], level: number) => {

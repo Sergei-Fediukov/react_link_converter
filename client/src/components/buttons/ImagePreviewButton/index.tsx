@@ -19,7 +19,7 @@ export const ImagePreviewButton: FC<Props> = ({ imageName, resourceName, handleF
   const [isPreviewPictureHovered, setIsPreviewPictureHovered] = useState(false)
   const [magnifiedPosition, setMagnifiedPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
 
-  const previewImage = useProgressiveImage(imageName ? `${API_BASE_URL}/JPG/${imageName}` : null)
+  const previewImage = useProgressiveImage(imageName)
 
   const handleMouseEnter = () => {
     setIsPreviewPictureHovered(true)
@@ -30,8 +30,6 @@ export const ImagePreviewButton: FC<Props> = ({ imageName, resourceName, handleF
     }, 150)
   }
 
-  const defalutFileName = resourceName.slice(0, resourceName.lastIndexOf('.'))
-
   const handleMouseMove: MouseEventHandler<HTMLDivElement> = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const x = ((e.clientX - rect.left) / rect.width) * 100
@@ -40,8 +38,7 @@ export const ImagePreviewButton: FC<Props> = ({ imageName, resourceName, handleF
   }
 
   const handleFileNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const initialFileNameExtension = resourceName.split('.').pop()
-    resourceName = `${e.target.value}.${initialFileNameExtension}`
+    resourceName = e.target.value
   }
 
   return (
@@ -62,7 +59,7 @@ export const ImagePreviewButton: FC<Props> = ({ imageName, resourceName, handleF
             {!isPreviewPictureHovered && (
               <label className={styles.preview__fileName_wrapper}>
                 <span>File name</span>
-                <input className={styles.folders__fileName} defaultValue={defalutFileName} onChange={handleFileNameChange} />
+                <input className={styles.folders__fileName} defaultValue={resourceName} onChange={handleFileNameChange} />
               </label>
             )}
             <div className={styles.preview__download_button__wrapper}>

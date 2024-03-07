@@ -3,12 +3,13 @@ import { ApiTags } from '@nestjs/swagger'
 
 import { ConverterService } from 'src/modules/converter'
 
+import { IResponse } from './converter.service'
 import { ConvertPagePayload, UrlHealthCheckPayload } from './dto/request'
 
 @ApiTags('Converter')
 @Controller('/converter')
 export class ConverterController {
-  constructor(private readonly converterService: ConverterService) { }
+  constructor(private readonly converterService: ConverterService) {}
 
   @Post('/health-check')
   @HttpCode(201)
@@ -18,11 +19,7 @@ export class ConverterController {
 
   @Post()
   @HttpCode(201)
-  async convertPage(@Body() convertOptions: ConvertPagePayload): Promise<{
-    file: string;
-    resourceName: string;
-    image: string;
-  }> {
+  async convertPage(@Body() convertOptions: ConvertPagePayload): Promise<IResponse> {
     return this.converterService.convert(convertOptions)
   }
 }

@@ -19,10 +19,7 @@
   }
 
   @media (max-width: $medium-weight) {
-    width: 380px !important;
-  }
-
-  @media (max-width: $extra-small-weight) {
-    width: 300px !important;
+    width: 100% !important;
+    padding: 10px;
   }
 }
